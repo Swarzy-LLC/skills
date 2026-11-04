@@ -24,6 +24,8 @@ npx skills add Swarzy-LLC/skills --list
 npx skills update
 ```
 
+For Claude Code, Claude apps, ChatGPT, Codex, Cursor, and Grok Bot, see [docs/install.md](docs/install.md).
+
 Prefer a global install (`-g`). Vendor a skill into a repo's `.agents/skills/` (run `npx skills add` without `-g` from that repo) only when cloud agents or collaborators working in that repo need it.
 
 ## Per-repo overrides
