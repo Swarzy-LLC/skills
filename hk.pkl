@@ -1,0 +1,31 @@
+amends "package://github.com/jdx/hk/releases/download/v2.11.0/hk@2.11.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.11.0/hk@2.11.0#/Builtins.pkl"
+
+local linters = new Mapping<String, Step> {
+  ["oxfmt"] = (Builtins.oxfmt) {
+    glob = List("**/*.md")
+  }
+  ["shellcheck"] = Builtins.shellcheck
+  ["skill-frontmatter"] {
+    glob = List("skills/**/SKILL.md")
+    check = "scripts/check-skill-frontmatter.sh {{files}}"
+  }
+}
+
+hooks {
+  ["pre-commit"] {
+    fix = true
+    stash = "git"
+    steps = linters
+  }
+  ["pre-push"] {
+    steps = linters
+  }
+  ["check"] {
+    steps = linters
+  }
+  ["fix"] {
+    fix = true
+    steps = linters
+  }
+}
