@@ -38,8 +38,8 @@ Tools are pinned in `mise.toml`. Bun is the only JavaScript runtime: mise instal
 
 ```bash
 mise install               # installs pinned tools and the git hooks
-bun install                # installs @types/bun and TypeScript
-hk check --all             # oxfmt, SKILL.md frontmatter validation, and typecheck
+bun install                # installs @types/bun
+hk check --all             # oxfmt, SKILL.md frontmatter validation, and `bun check`
 hk fix --all               # apply formatting
 bun run check:frontmatter  # validate every skills/*/SKILL.md
 ```

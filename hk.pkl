@@ -16,7 +16,7 @@ local checks = (linters) {
   ["typecheck"] {
     glob = List("**/*.ts", "tsconfig.json", "package.json")
     depends = List("oxfmt")
-    check = "bun run --bun typecheck"
+    check = "bun check"
   }
 }
 
