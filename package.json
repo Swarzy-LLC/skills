@@ -1,0 +1,11 @@
+{
+  "name": "swarzy-skills",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:frontmatter": "bun scripts/check-skill-frontmatter.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.4"
+  }
+}

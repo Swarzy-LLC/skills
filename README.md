@@ -24,6 +24,8 @@ npx skills add Swarzy-LLC/skills --list
 npx skills update
 ```
 
+For Claude Code, Claude apps, ChatGPT, Codex, Cursor, and Grok Bot, see [docs/install.md](docs/install.md).
+
 Prefer a global install (`-g`). Vendor a skill into a repo's `.agents/skills/` (run `npx skills add` without `-g` from that repo) only when cloud agents or collaborators working in that repo need it.
 
 ## Per-repo overrides
@@ -32,13 +34,17 @@ Skills read local rules from the repo they run in. For `test-audit`, add a `Test
 
 ## Development
 
-Tools are pinned in `mise.toml`, and [hk](https://hk.jdx.dev) runs the checks as git hooks.
+Tools are pinned in `mise.toml`. Bun is the only JavaScript runtime: mise installs npm-backed tools such as oxfmt with Bun (`npm.package_manager = "bun"`), and the checks run them with `bun run --bun`, so Node.js is not needed. [hk](https://hk.jdx.dev) runs the checks as git hooks.
 
 ```bash
-mise install   # installs pinned tools and the git hooks
-hk check --all # oxfmt, shellcheck, and SKILL.md frontmatter validation
-hk fix --all   # apply formatting
+mise install               # installs pinned tools and the git hooks
+bun install                # installs @types/bun
+hk check --all             # oxfmt, SKILL.md frontmatter validation, and `bun check`
+hk fix --all               # apply formatting
+bun run check:frontmatter  # validate every skills/*/SKILL.md
 ```
+
+`scripts/check-skill-frontmatter.ts` enforces the [Agent Skills](https://agentskills.io) rules: `name` is 1-64 lowercase letters, digits, or single hyphens and matches its directory, and `description` is present and at most 1024 characters.
 
 ## Credits
 

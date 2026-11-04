@@ -1,9 +1,11 @@
 [tools]
-node = "26.13.0"
+bun = "1.4.4"
 hk = "2.11.0"
 pkl = "0.32.2"
-shellcheck = "0.11.0"
 "npm:oxfmt" = "0.75.0"
+
+[settings]
+npm.package_manager = "bun"
 
 [hooks]
 postinstall = "hk install --mise"

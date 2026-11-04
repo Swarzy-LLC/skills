@@ -3,12 +3,20 @@ import "package://github.com/jdx/hk/releases/download/v2.11.0/hk@2.11.0#/Builtin
 
 local linters = new Mapping<String, Step> {
   ["oxfmt"] = (Builtins.oxfmt) {
-    glob = List("**/*.md")
+    prefix = List("bun", "run", "--bun")
+    glob = List("**/*.md", "**/*.ts", "**/*.json")
   }
-  ["shellcheck"] = Builtins.shellcheck
   ["skill-frontmatter"] {
-    glob = List("skills/**/SKILL.md")
-    check = "scripts/check-skill-frontmatter.sh {{files}}"
+    glob = List("skills/**/SKILL.md", "scripts/check-skill-frontmatter.ts")
+    check = "bun scripts/check-skill-frontmatter.ts"
+  }
+}
+
+local checks = (linters) {
+  ["typecheck"] {
+    glob = List("**/*.ts", "tsconfig.json", "package.json")
+    depends = List("oxfmt")
+    check = "bun check"
   }
 }
 
@@ -16,13 +24,13 @@ hooks {
   ["pre-commit"] {
     fix = true
     stash = "git"
-    steps = linters
+    steps = checks
   }
   ["pre-push"] {
-    steps = linters
+    steps = checks
   }
   ["check"] {
-    steps = linters
+    steps = checks
   }
   ["fix"] {
     fix = true
