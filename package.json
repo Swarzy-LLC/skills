@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check:frontmatter": "bun scripts/check-skill-frontmatter.ts"
+    "check:frontmatter": "bun scripts/check-skill-frontmatter.ts",
+    "update:modern-web-guidance": "bun scripts/update-modern-web-guidance.ts"
   },
   "devDependencies": {
     "@types/bun": "1.4.4"

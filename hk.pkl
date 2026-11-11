@@ -5,10 +5,21 @@ local linters = new Mapping<String, Step> {
   ["oxfmt"] = (Builtins.oxfmt) {
     prefix = List("bun", "run", "--bun")
     glob = List("**/*.md", "**/*.ts", "**/*.json")
+    // Upstream skill bytes. Formatting them would change the vendored files.
+    exclude = List("skills/modern-web-guidance", ".agents/skills/modern-web-guidance")
   }
   ["skill-frontmatter"] {
     glob = List("skills/**/SKILL.md", "scripts/check-skill-frontmatter.ts")
     check = "bun scripts/check-skill-frontmatter.ts"
+  }
+  ["vendored-skill"] {
+    glob = List(
+      "skills/modern-web-guidance/**",
+      ".agents/skills/modern-web-guidance/**",
+      "skills-lock.json",
+      "scripts/check-vendored-skill.ts",
+    )
+    check = "bun scripts/check-vendored-skill.ts"
   }
 }
 
